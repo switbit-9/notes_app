@@ -1,0 +1,1 @@
+from backend.app.note.infrastructure.models.note import Note

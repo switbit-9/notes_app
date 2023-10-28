@@ -1,0 +1,1 @@
+from backend.app.note.application.services.note_services import BaseNoteQueryService ,NoteQueryService

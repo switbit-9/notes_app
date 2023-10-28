@@ -1,0 +1,12 @@
+SQLAlchemy==1.4.36
+fastapi==0.78.0
+mypy==0.960
+psycopg2-binary==2.9.9
+pycodestyle==2.8.0
+pydantic==1.9.1
+pytest==7.1.2
+pylint==2.13.9
+toml==0.10.2
+uvicorn==0.17.6
+python-dotenv
+alembic
