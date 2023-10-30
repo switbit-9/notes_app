@@ -1,6 +1,13 @@
 import axios from "axios";
-import ConfigDB from "../../config";
+import { GET_NOTES_LIST } from "../action_types";
+import { getNotesList } from "../store/notes/actions";
 import endpoints from "./api_endpoints";
+import ConfigDB from "../../config";
+
+console.log('===========')
+console.log(ConfigDB.data.api.host)
+console.log('===========')
+
 
 const logSuccess = (res, type) => {
   if (process.env.NODE_ENV === "production") {
@@ -55,6 +62,18 @@ const logFailure = (err, type) => {
   }
 };
 
+const handleAlternativeActions = (
+  dispatch,
+  type,
+  payload,
+  state,
+  previousPayload
+) => {
+  if (type === GET_NOTES_LIST.concat("_SUCCESS")) {
+    dispatch(getNotesList());
+  }
+};
+
 const handleErrorActions = (dispatch, type) => {};
 
 const handleApiCall = (store, action) => {
@@ -71,7 +90,7 @@ const handleApiCall = (store, action) => {
 
   instance
     .request({
-      baseURL: 'http://localhost:8080/',
+      baseURL:  "http://localhost:8080/",
       headers: {
         "Content-Type": "application/json",
       },
@@ -90,6 +109,13 @@ const handleApiCall = (store, action) => {
         headers: res.headers,
       });
       logSuccess(res, action.type);
+      // handleAlternativeActions(
+      //   dispatch,
+      //   action.type.concat('_SUCCESS'),
+      //   res.data,
+      //   state,
+      //   action.payload,
+      // );
     })
     .catch((err) => {
       dispatch({

@@ -1,26 +1,26 @@
 import {
-  NOTES_LIST,
-  NOTE_CREATE,
-  NOTE_DELETE,
-  NOTE_UPDATE,
+  GET_NOTES_LIST,
+  POST_NOTE_CREATE,
+  DELETE_NOTE,
+  PUT_NOTE_UPDATE,
 } from "../action_types";
 
 const endpoints = {
-  [NOTES_LIST]: {
+  [GET_NOTES_LIST]: {
     endpoint: (state) => `/notes/`,
     method: "GET",
   },
-  [NOTE_CREATE]: {
+  [POST_NOTE_CREATE]: {
     endpoint: (state) => `/notes/`,
     method: "POST",
     payload: (state, action) => action.payload,
   },
-  [NOTE_DELETE]: {
+  [DELETE_NOTE]: {
     endpoint: (state, action) => `/notes/${action.payload}/`,
     method: "DELETE",
     payload: (state, action) => action.payload,
   },
-  [NOTE_UPDATE]: {
+  [PUT_NOTE_UPDATE]: {
     endpoint: (state, action) => `/notes/${action.payload.id}/`,
     method: "PUT",
     payload: (state, action) => action.payload.body,

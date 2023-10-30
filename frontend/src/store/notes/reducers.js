@@ -1,8 +1,8 @@
 import {
-  NOTES_LIST,
-  NOTE_CREATE,
-  NOTE_DELETE,
-  NOTE_UPDATE,
+  DELETE_NOTE,
+  GET_NOTES_LIST,
+  POST_NOTE_CREATE,
+  PUT_NOTE_UPDATE,
 } from "../../action_types";
 
 const initialState = {
@@ -13,13 +13,13 @@ const initialState = {
 
 const notes = (state = initialState, action) => {
   switch (action.type) {
-    case NOTES_LIST:
+    case GET_NOTES_LIST:
       state = {
         ...state,
         isLoading: true,
       };
       break;
-    case NOTES_LIST.concat("_SUCCESS"):
+    case GET_NOTES_LIST.concat("_SUCCESS"):
       list = [...state.list];
       list = [...action.payload];
 
@@ -30,7 +30,7 @@ const notes = (state = initialState, action) => {
       };
       break;
 
-    case NOTES_LIST.concat("_FAILURE"):
+    case GET_NOTES_LIST.concat("_FAILURE"):
       state = {
         ...state,
         isLoading: false,
@@ -38,24 +38,24 @@ const notes = (state = initialState, action) => {
       };
       break;
 
-    case NOTE_CREATE:
+    case POST_NOTE_CREATE:
+      console.log(state.list);
       state = {
         ...state,
         isLoading: true,
       };
       break;
-    case NOTE_CREATE.concat("_SUCCESS"):
-      //   list = [...state.list];
-      //   list = [...action.payload]
 
+    case POST_NOTE_CREATE.concat("_SUCCESS"):
+      list = [action.payload, ...state.list];
       state = {
         ...state,
-        // list,
+        list,
         isLoading: false,
       };
       break;
 
-    case NOTE_CREATE.concat("_FAILURE"):
+    case POST_NOTE_CREATE.concat("_FAILURE"):
       state = {
         ...state,
         isLoading: false,
@@ -63,21 +63,25 @@ const notes = (state = initialState, action) => {
       };
       break;
 
-    case NOTE_DELETE:
+    case DELETE_NOTE:
       state = {
         ...state,
         isLoading: true,
       };
       break;
 
-    case NOTE_DELETE.concat("_SUCCESS"):
+    case DELETE_NOTE.concat("_SUCCESS"):
+      const itemDeleteID = action?.payload?.id_;
       state = {
         ...state,
+        list: itemDeleteID
+          ? state.list.filter((item) => item.id !== itemDeleteID)
+          : state.list,
         isLoading: false,
       };
       break;
 
-    case NOTE_DELETE.concat("_FAILURE"):
+    case DELETE_NOTE.concat("_FAILURE"):
       state = {
         ...state,
         isLoading: false,
@@ -85,24 +89,29 @@ const notes = (state = initialState, action) => {
       };
       break;
 
-    case NOTE_UPDATE:
+    case PUT_NOTE_UPDATE:
       state = {
         ...state,
         isLoading: true,
       };
       break;
-    case NOTE_UPDATE.concat("_SUCCESS"):
-      //   list = [...state.list];
-      //   list = [...action.payload]
+    case PUT_NOTE_UPDATE.concat("_SUCCESS"):
+      const itemUpdateID = action?.payload?.id_;
 
+      const new_list = itemUpdateID ? state.list.map((item) => {
+        if (item.id === itemUpdateID) {
+          return action.payload;
+        }
+        return item;
+      }) : state.list
       state = {
         ...state,
-        // list,
+        list: new_list,
         isLoading: false,
       };
       break;
 
-    case NOTE_UPDATE.concat("_FAILURE"):
+    case PUT_NOTE_UPDATE.concat("_FAILURE"):
       state = {
         ...state,
         isLoading: false,

@@ -1,41 +1,12 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  createNote,
-  getNotesList,
-  updateNote,
-} from "../../store/notes/actions";
-import styles from "./styles";
 
-function InputNote({ item, button, actionType }) {
-  const dispatch = useDispatch();
-  const initialTitle = item?.title ? item.title : "";
-  const initialDescription = item?.description ? item.description : "";
-
-  const [title, setTitle] = useState(initialTitle);
-  const [description, setDescription] = useState(initialDescription);
-
-
-  const onPressHandler = () => {
-    body = {
-      title: title,
-      description: description,
-    };
-    body = JSON.stringify(body);
-    console.log(body);
-    if (actionType === "create") {
-      dispatch(createNote(body));
-    } else {
-        payload = {
-            'body' : body, 
-            'id' : item.id_
-        }
-      dispatch(updateNote(payload));
-    }
-    dispatch(getNotesList());
-  };
+function InputNote({ item, button, onPress }) {
+  const [title, setTitle] = useState(item?.title ? item.title : "");
+  const [description, setDescription] = useState(
+    item?.description ? item.description : ""
+  );
 
   return (
     <View>
@@ -55,7 +26,7 @@ function InputNote({ item, button, actionType }) {
         style={button.style}
         icon={button.icon}
         mode={button.mode}
-        onPress={onPressHandler}
+        onPress={() => onPress(title, description)}
       >
         {button.title}
       </Button>

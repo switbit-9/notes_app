@@ -1,31 +1,28 @@
 import {
-  NOTES_LIST,
-  NOTE_CREATE,
-  NOTE_DELETE,
-  NOTE_UPDATE,
+  GET_NOTES_LIST,
+  POST_NOTE_CREATE,
+  DELETE_NOTE,
+  PUT_NOTE_UPDATE,
 } from "../../action_types";
 
 export const getNotesList = () => {
   return {
-    type: NOTES_LIST,
+    type: GET_NOTES_LIST,
     api: true,
   };
 };
 
 export const createNote = (body) => {
-  console.log(body);
   return {
-    type: NOTE_CREATE,
+    type: POST_NOTE_CREATE,
     api: true,
     payload: body,
   };
 };
 
 export const updateNote = (payload) => {
-    console.log('-------UPDATE------')
-  console.log(payload);
   return {
-    type: NOTE_UPDATE,
+    type: PUT_NOTE_UPDATE,
     api: true,
     payload: payload,
   };
@@ -33,7 +30,7 @@ export const updateNote = (payload) => {
 
 export const deleteNote = (id) => {
   return {
-    type: NOTE_DELETE,
+    type: DELETE_NOTE,
     api: true,
     payload: id,
   };

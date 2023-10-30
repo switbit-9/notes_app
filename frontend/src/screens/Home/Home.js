@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import AppLoader from "../../components/AppLoader/AppLoader";
 import InputNotes from "../../components/CreateNote/CreateNotes";
@@ -10,16 +10,24 @@ import ErrorPage from "../Error/Error";
 
 function Home({ navigation }) {
   const dispatch = useDispatch();
-  const error = useSelector((state) => state.notes.error);
   useEffect(() => {
     dispatch(getNotesList());
   }, []);
 
-  const data = useSelector((state) => state.notes.list);
-  const isLoading = useSelector((state) => state.notes.isLoading);
+  const { list: data, isLoading, error } = useSelector((state) => state.notes);
 
   return (
     <View style={{ flex: 1 }}>
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: "bold",
+          textAlign: "center",
+          margin: 10,
+        }}
+      >
+        Notes App
+      </Text>
       {error && <ErrorPage />}
       <InputNotes />
       {!error && !isLoading && <Posts data={data} />}
