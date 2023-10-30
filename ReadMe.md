@@ -10,6 +10,8 @@ This repository contains a Notes App with both backend and frontend components. 
 
 2. Inside the `backend/` folder:
 
+    **Need to run with python version 3.10**
+
    - Create a Python virtual environment:
      ```
      python3 -m venv .venv
