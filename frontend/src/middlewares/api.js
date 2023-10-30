@@ -4,10 +4,6 @@ import { getNotesList } from "../store/notes/actions";
 import endpoints from "./api_endpoints";
 import ConfigDB from "../../config";
 
-console.log('===========')
-console.log(ConfigDB.data.api.host)
-console.log('===========')
-
 
 const logSuccess = (res, type) => {
   if (process.env.NODE_ENV === "production") {

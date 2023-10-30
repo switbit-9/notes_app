@@ -10,6 +10,8 @@ This repository contains a Notes App with both backend and frontend components. 
 
 2. Inside the `backend/` folder:
 
+    **Need to run with python version 3.10**
+
    - Create a Python virtual environment:
      ```
      python3 -m venv .venv
@@ -34,10 +36,10 @@ This repository contains a Notes App with both backend and frontend components. 
 
    - Launch the Uvicorn server on `localhost` at port `8000` with automatic reloading:
      ```
-     uvicorn backend.main:app --host localhost --port 8000 --reload
+     uvicorn backend.app.main:app --host localhost --port 8080 --reload
      ```
 
-   - The backend server will be accessible at http://localhost:8000.
+   - The backend server will be accessible at http://localhost:8080.
 
    - The database should be available at http://localhost:5432.
 
@@ -53,9 +55,8 @@ npm install
 3. Start the Expo development server:
 npx expo start
 
+4. To run the app on an iOS simulator, press `i` or to run on web press `w`.
 
-4To run the app on an iOS simulator, press `i`.
-
-Now, you should have the Notes App up and running with the backend server on http://localhost:8000 and the frontend being developed using Expo. Enjoy using the app!
+Now, you should have the Notes App up and running with the backend server on http://localhost:8080 and the frontend being developed using Expo. Enjoy using the app!
 
 Feel free to customize the instructions to match your specific project's requirements or provide more details as needed.
