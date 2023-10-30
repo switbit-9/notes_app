@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-export default styles = StyleSheet.create({
+const styles = StyleSheet.create({
   cardStyle: {
     margin: 10,
     padding: 10,
@@ -9,3 +9,5 @@ export default styles = StyleSheet.create({
     marginTop: 10,
   },
 });
+
+export default styles;

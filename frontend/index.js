@@ -8,3 +8,9 @@
 //     document.getElementById("root") || document.getElementById("main");
 //   AppRegistry.runApplication("main", { rootTag });
 // }
+
+
+import { registerRootComponent } from "expo";
+import App from "./App";
+
+registerRootComponent(App);

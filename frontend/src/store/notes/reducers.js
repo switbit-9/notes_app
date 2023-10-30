@@ -20,12 +20,10 @@ const notes = (state = initialState, action) => {
       };
       break;
     case GET_NOTES_LIST.concat("_SUCCESS"):
-      list = [...state.list];
-      list = [...action.payload];
 
       state = {
         ...state,
-        list,
+        list: action.payload,
         isLoading: false,
       };
       break;
@@ -39,7 +37,6 @@ const notes = (state = initialState, action) => {
       break;
 
     case POST_NOTE_CREATE:
-      console.log(state.list);
       state = {
         ...state,
         isLoading: true,
@@ -98,12 +95,14 @@ const notes = (state = initialState, action) => {
     case PUT_NOTE_UPDATE.concat("_SUCCESS"):
       const itemUpdateID = action?.payload?.id_;
 
-      const new_list = itemUpdateID ? state.list.map((item) => {
-        if (item.id === itemUpdateID) {
-          return action.payload;
-        }
-        return item;
-      }) : state.list
+      const new_list = itemUpdateID
+        ? state.list.map((item) => {
+            if (item.id === itemUpdateID) {
+              return action.payload;
+            }
+            return item;
+          })
+        : state.list;
       state = {
         ...state,
         list: new_list,

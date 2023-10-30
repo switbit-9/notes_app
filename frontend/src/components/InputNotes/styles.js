@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export default styles = StyleSheet.create({
+const styles = StyleSheet.create({
   buttonDisabled: {
     backgroundColor: "gray",
   },
@@ -14,3 +14,5 @@ export default styles = StyleSheet.create({
     borderRadius: 5,
   },
 });
+
+export default styles;

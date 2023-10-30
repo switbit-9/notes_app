@@ -14,7 +14,10 @@ function Home({ navigation }) {
     dispatch(getNotesList());
   }, []);
 
-  const { list: data, isLoading, error } = useSelector((state) => state.notes);
+  const { list, isLoading, error } = useSelector((state) => state.notes);
+  // const new_state = useSelector((state) => state.notes);
+  // const {list:data } = new_state
+  // console.log(data)
 
   return (
     <View style={{ flex: 1 }}>
@@ -30,7 +33,7 @@ function Home({ navigation }) {
       </Text>
       {error && <ErrorPage />}
       <InputNotes />
-      {!error && !isLoading && <Posts data={data} />}
+      {!error && !isLoading && <Posts data={list} />}
       {!error && isLoading && <AppLoader />}
     </View>
   );
