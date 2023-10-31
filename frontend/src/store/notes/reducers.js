@@ -20,7 +20,6 @@ const notes = (state = initialState, action) => {
       };
       break;
     case GET_NOTES_LIST.concat("_SUCCESS"):
-
       state = {
         ...state,
         list: action.payload,
@@ -44,10 +43,10 @@ const notes = (state = initialState, action) => {
       break;
 
     case POST_NOTE_CREATE.concat("_SUCCESS"):
-      list = [action.payload, ...state.list];
+
       state = {
         ...state,
-        list,
+        list : [action.payload, ...state.list],
         isLoading: false,
       };
       break;
