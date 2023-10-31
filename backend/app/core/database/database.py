@@ -1,4 +1,4 @@
-
+import sys
 from typing import Iterator
 
 from sqlalchemy import create_engine
@@ -12,7 +12,8 @@ __SETTINGS: Settings = get_settings()
 __SQLALCHEMY_DATABASE_URL = 'postgresql://{db_user}:{db_pass}@{db_host}/{db_name}'.format(
     **dict(__SETTINGS)
 )
-
+# sys.stdout.write("=========================")
+# sys.stdout.write(__SQLALCHEMY_DATABASE_URL)
 engine = create_engine(
     __SQLALCHEMY_DATABASE_URL,
     future=True

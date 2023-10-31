@@ -10,7 +10,7 @@ function InputNotes() {
   const [showForm, setShowForm] = useState(false);
 
   const onPressCreate = (title, description) => {
-    body = {
+    const body = {
       title: title,
       description: description,
     };

@@ -1,0 +1,65 @@
+version: '3.8'
+services:
+
+  database:
+    image: postgres:alpine
+    restart: on-failure
+
+    healthcheck:
+      test: [ 'CMD', 'pg_isready -U postgres' ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+    ports:
+      - '5433:5432'
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_HOST: ${DB_HOST}
+      POSTGRES_PORT: ${DB_PORT}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASS}
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    networks:
+      - note_network
+
+  backend:
+    build:
+      context: ./backend
+    command: uvicorn backend.app.main:app --host 0.0.0.0 --port 8080 --reload
+    ports:
+      - 8080:8080
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      WAIT_FOR_DB: 1
+
+    depends_on:
+      - database
+    networks:
+      - note_network
+
+
+  frontend:
+    build:
+      context: ./frontend
+    command: npm run web
+    depends_on:
+      - backend
+    networks:
+      - note_network
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+      - "19006:19006"
+
+networks:
+  note_network:
+    driver: bridge
+
